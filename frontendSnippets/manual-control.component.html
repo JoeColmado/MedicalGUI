@@ -1,0 +1,115 @@
+<div class=" w3-round-xlarge grid">
+
+        <div class=" card-tall grid-element" >
+
+        <h1><b>Pressure</b></h1>
+        <div style="height: 35%;">
+                <app-stream-char [sensorValue]="appService.p1Value"></app-stream-char>
+        </div>
+        <div style="height: 35%; margin-top: 10%;">
+                <app-stream-char [sensorValue]="appService.p2Value"></app-stream-char>
+        </div>
+
+        </div>
+        <div class="w3-row card-wide grid-element" >
+                <!-- <p *ngIf="!timeLineData">No Data selected</p> -->
+                <h1><b>Profile </b></h1>
+
+                <app-manual-slider *ngIf="!timeLineData"> </app-manual-slider>
+                <app-time-line class="w3-half" [liveView]="true" [liveViewValue]="appService.timerValue" *ngIf="timeLineData" [timeLineData]="timeLineData"></app-time-line>
+                <!-- <p *ngIf="timeLineData" > Time</p> -->
+                <!-- <p>Timeleft {{appService.timerValue}}: --</p> -->
+        </div>
+
+
+        <div class=" w3-center  ">
+                <app-play-pause></app-play-pause>
+        </div>
+
+            <div class="  grid-element card-tall " >
+                <h1 class="w3-margin-bottom"><b>Device </b></h1>
+                <!-- <mat-divider></mat-divider> -->
+
+                <!-- <h3 class="w3-margin-bottom"><b>Pump Values </b></h3> -->
+
+                <div class="w3-row ">
+                        <div class="w3-half ">
+                                <app-value-selector [value]="100 | number : '1.' " [title]="'Cardio [Bpm]'" [min]="appService.bpmMin"
+                                        [max]="appService.bpmMax" [lowRange]="appService.bpmLow" [highRange]="appService.bpmHigh"> </app-value-selector>
+
+                        </div>
+                        <div class="w3-half">
+                                <app-value-selector class="w3-right w3-left" [value]="140.00 | number : '1.' " [title]="'Motor Speed [Rpm]'"
+                                        [min]="0" [max]="250" [lowRange]="0"
+                                        [highRange]="220"> </app-value-selector>
+
+                        </div>
+
+                </div>
+
+
+                <div class="w3-bold w3-margin-top">
+                        <h3 class="w3-margin-bottom"><b>Pressure Option </b></h3>
+                        <mat-radio-group aria-label="Select an option" [(ngModel)]="appService.motorSpeedOption" (change)="selectPressureOption($event)">
+                                <mat-radio-button  class="w3-margin" value="Low"><h4>Low</h4></mat-radio-button>
+                                <mat-radio-button checked="true" class="w3-margin" value="Middle"><h4>Middle</h4></mat-radio-button>
+                                <mat-radio-button  class="w3-margin" value="High"><h4>High</h4></mat-radio-button>
+                        </mat-radio-group>
+                </div>
+
+                <!-- <app-motor-control class="w3-margin-top" [enable]="true" [eventName]="'waterBath'" [controlName]="'power'">
+                </app-motor-control> -->
+
+                <h3 class="w3-margin-bottom"><b>Light
+                         </b></h3>
+
+                <app-motor-control [eventName]="'light'" [controlName]="'wb_incandescent'"></app-motor-control>
+
+            </div>
+
+            <div class=" card-wide grid-element w3-display-container w3-row">
+                        <h1 class="w3-margin-bottom"><b>Sensors </b></h1>
+
+
+                       <div class="w3-quarter ">
+                               <app-value-selector  [value]="46.32 | number : '1.2-2'"  [title]="'T1[°C]'"
+                                [min]="appService.tMin"
+                                [max]="appService.tMax"
+                                [lowRange]="appService.tLow"
+                                [highRange]="50"
+                               ></app-value-selector>
+                        </div>
+                        <div class="w3-quarter">
+                                <app-value-selector [value]="38.45 | number : '1.2-2' "
+                                [title]="'T2[°C]'"
+                                [min]="appService.tMin"
+                                [max]="appService.tMax"
+                                [lowRange]="appService.tLow"
+                                [highRange]="appService.tHigh"
+                                ></app-value-selector>
+                        </div>
+                        <div class="w3-quarter">
+                                <app-value-selector [value]="74.6 | number : '1.2-2' "
+                                [title]="'Humidity [%]'"
+                                [min]="0"
+                                [max]="100"
+                                [lowRange]="0"
+                                [highRange]="75"
+                                ></app-value-selector>
+                        </div>
+                        <div class="w3-quarter ">
+                                <app-value-selector [value]="80.37 | number : '1.2-2' " (valueChange)="testNumber = $event"
+                                [title]="'Delta P[mmHG]'"
+                                [min]="appService.pMin"
+                                [max]="appService.pMax"
+                                [lowRange]="appService.pLow"
+                                [highRange]="appService.pHigh"
+                                > </app-value-selector>
+                        </div>
+
+                <!-- <button (click)="appService.resetMaxValues()" class="w3-display-bottomright w3-padding w3-margin-right w3-margin-bottom" mat-raised-button  color="warn"> reset Max Values</button> -->
+            </div>
+
+  </div>
+
+
