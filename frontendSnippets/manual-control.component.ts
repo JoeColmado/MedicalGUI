@@ -10,13 +10,13 @@ import { SafetyStopComponent } from '../../Dialogs/safety-stop/safety-stop.compo
 })
 export class ManualControlComponent implements OnInit, OnDestroy {
 
-  testNumber = 19;
+  // Implement Interfaces
   profile: any;
   timeLineData: any[];
-  duration = 0;
-  dialogRef: any;
-  emergencyDialogOpen = false;
 
+  dialogRef: MatDialogRef;
+  duration = 0;
+  emergencyDialogOpen = false;
   manualControl = true;
 
 
@@ -24,12 +24,35 @@ export class ManualControlComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public appService: AppStateService,
     public dialog: MatDialog,
-  ) {
+  ) { }
+
+  // Check if ProfileData is loaded
+  ngOnInit(): void {
+    let mode = 'manual';
+    if (!this.manualControl) {
+      this.loadProfileData();
+      mode = 'profile';
+    }
+// Inform Server
+    const serverData = {
+      event: 'openControl',
+      mode,
+    };
+    this.appService.socketEmit(serverData);
+  }
+// Inform Server that Control has been closed
+  ngOnDestroy() {
+    const serverData = {
+      event: 'closeControl',
+    };
+    this.appService.socketEmit(serverData);
+  }
+
+  subscribeToServerEvents() {
+    // Check from where we are coming
     this.route.params.subscribe((profile: any) => {
-      // TODO Check from where we are coming
 
       if (profile.data) {
-        console.log('profile');
         this.manualControl = false;
         this.profile = JSON.parse(profile.data);
         this.timeLineData = this.profile.data.data.timelineData;
@@ -43,8 +66,10 @@ export class ManualControlComponent implements OnInit, OnDestroy {
         console.log('manual');
 
       }
+
+      // Subscribe to Emmgergency Button
       this.appService.emergency.subscribe((data: any) => {
-         console.log(data);
+        //  console.log(data);
          if (data.state) {
            this.openDialog();
 
@@ -59,30 +84,10 @@ export class ManualControlComponent implements OnInit, OnDestroy {
        });
 
     });
-   }
 
-
-  ngOnInit(): void {
-
-    let mode = 'manual';
-    if (!this.manualControl) {
-      this.loadProfileData();
-      mode = 'profile';
-    }
-
-    const serverData = {
-      event: 'openControl',
-      mode,
-    };
-    this.appService.socketEmit(serverData);
-  }
-  ngOnDestroy() {
-    const serverData = {
-      event: 'closeControl',
-    };
-    this.appService.socketEmit(serverData);
   }
 
+  // Convert Data for Display it in the Profile Chart
   loadProfileData() {
     console.log(this.profile.data.data);
     const ServerData = this.profile.data.data.timelineData.map((el) => ({
@@ -96,6 +101,7 @@ export class ManualControlComponent implements OnInit, OnDestroy {
     });
   }
 
+  // Open Popupwindow in Case Emergency button has been pushed
   openDialog() {
     this.dialogRef = this.dialog.open(SafetyStopComponent, {
       width: '80%',
@@ -105,16 +111,11 @@ export class ManualControlComponent implements OnInit, OnDestroy {
 
   }
 
+
+  // Change pressure option and Inform Server
   selectPressureOption(e) {
-    console.log(e.value);
+    // console.log(e.value);
     this.appService.setMotorSpeed();
-
-    // const ServerData = {
-    //   event: 'setPressureOption',
-    //   newPressureOption: e.value
-    // };
-    // this.appService.socketEmit(ServerData);
-
   }
 
 }
