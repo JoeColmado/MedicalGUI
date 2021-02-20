@@ -3,22 +3,21 @@
         <div class=" card-tall grid-element" >
 
         <h1><b>Pressure</b></h1>
-        <div style="height: 35%;">
+        <div >
                 <app-stream-char [sensorValue]="appService.p1Value"></app-stream-char>
         </div>
-        <div style="height: 35%; margin-top: 10%;">
+        <div>
                 <app-stream-char [sensorValue]="appService.p2Value"></app-stream-char>
         </div>
 
         </div>
         <div class="w3-row card-wide grid-element" >
-                <!-- <p *ngIf="!timeLineData">No Data selected</p> -->
                 <h1><b>Profile </b></h1>
 
                 <app-manual-slider *ngIf="!timeLineData"> </app-manual-slider>
                 <app-time-line class="w3-half" [liveView]="true" [liveViewValue]="appService.timerValue" *ngIf="timeLineData" [timeLineData]="timeLineData"></app-time-line>
-                <!-- <p *ngIf="timeLineData" > Time</p> -->
-                <!-- <p>Timeleft {{appService.timerValue}}: --</p> -->
+                <p *ngIf="timeLineData" > Time</p>
+                <p>Timeleft {{appService.timerValue}}: --</p>
         </div>
 
 
@@ -28,9 +27,7 @@
 
             <div class="  grid-element card-tall " >
                 <h1 class="w3-margin-bottom"><b>Device </b></h1>
-                <!-- <mat-divider></mat-divider> -->
 
-                <!-- <h3 class="w3-margin-bottom"><b>Pump Values </b></h3> -->
 
                 <div class="w3-row ">
                         <div class="w3-half ">
@@ -39,7 +36,7 @@
 
                         </div>
                         <div class="w3-half">
-                                <app-value-selector class="w3-right w3-left" [value]="140.00 | number : '1.' " [title]="'Motor Speed [Rpm]'"
+                                <app-value-selector class="" [value]="140.00 | number : '1.' " [title]="'Motor Speed [Rpm]'"
                                         [min]="0" [max]="250" [lowRange]="0"
                                         [highRange]="220"> </app-value-selector>
 
@@ -57,8 +54,8 @@
                         </mat-radio-group>
                 </div>
 
-                <!-- <app-motor-control class="w3-margin-top" [enable]="true" [eventName]="'waterBath'" [controlName]="'power'">
-                </app-motor-control> -->
+                <app-motor-control class="w3-margin-top" [enable]="true" [eventName]="'waterBath'" [controlName]="'power'">
+                </app-motor-control>
 
                 <h3 class="w3-margin-bottom"><b>Light
                          </b></h3>
@@ -107,7 +104,6 @@
                                 > </app-value-selector>
                         </div>
 
-                <!-- <button (click)="appService.resetMaxValues()" class="w3-display-bottomright w3-padding w3-margin-right w3-margin-bottom" mat-raised-button  color="warn"> reset Max Values</button> -->
             </div>
 
   </div>
