@@ -11,5 +11,5 @@ controllers.
 For the Frontend as for the Beckend you can find code Snippets to see the structure of 
 for example the websocket Api or the Angular Component main Screen.
 
-it has been delivered with success in dec,2020.
+
 
