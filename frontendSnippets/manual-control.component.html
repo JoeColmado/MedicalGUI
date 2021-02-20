@@ -1,4 +1,4 @@
-<div class=" w3-round-xlarge grid">
+<div class=" grid">
 
         <div class=" card-tall grid-element" >
 
@@ -31,12 +31,12 @@
 
                 <div class="w3-row ">
                         <div class="w3-half ">
-                                <app-value-selector [value]="100 | number : '1.' " [title]="'Cardio [Bpm]'" [min]="appService.bpmMin"
+                                <app-value-selector [value]="appService.bpmValue | number : '1.' " [title]="'Cardio [Bpm]'" [min]="appService.bpmMin"
                                         [max]="appService.bpmMax" [lowRange]="appService.bpmLow" [highRange]="appService.bpmHigh"> </app-value-selector>
 
                         </div>
                         <div class="w3-half">
-                                <app-value-selector class="" [value]="140.00 | number : '1.' " [title]="'Motor Speed [Rpm]'"
+                                <app-value-selector class="" [value]="appService.rpmValue | number : '1.' " [title]="'Motor Speed [Rpm]'"
                                         [min]="0" [max]="250" [lowRange]="0"
                                         [highRange]="220"> </app-value-selector>
 
@@ -69,7 +69,7 @@
 
 
                        <div class="w3-quarter ">
-                               <app-value-selector  [value]="46.32 | number : '1.2-2'"  [title]="'T1[°C]'"
+                               <app-value-selector  [value]="appService.t1Value | number : '1.2-2'"  [title]="'T1[°C]'"
                                 [min]="appService.tMin"
                                 [max]="appService.tMax"
                                 [lowRange]="appService.tLow"
@@ -77,7 +77,7 @@
                                ></app-value-selector>
                         </div>
                         <div class="w3-quarter">
-                                <app-value-selector [value]="38.45 | number : '1.2-2' "
+                                <app-value-selector [value]="appService.t2Value | number : '1.2-2' "
                                 [title]="'T2[°C]'"
                                 [min]="appService.tMin"
                                 [max]="appService.tMax"
@@ -86,7 +86,7 @@
                                 ></app-value-selector>
                         </div>
                         <div class="w3-quarter">
-                                <app-value-selector [value]="74.6 | number : '1.2-2' "
+                                <app-value-selector [value]="appService.humValue| number : '1.2-2' "
                                 [title]="'Humidity [%]'"
                                 [min]="0"
                                 [max]="100"
@@ -95,7 +95,7 @@
                                 ></app-value-selector>
                         </div>
                         <div class="w3-quarter ">
-                                <app-value-selector [value]="80.37 | number : '1.2-2' " (valueChange)="testNumber = $event"
+                                <app-value-selector [value]="appService.deltaPValue | number : '1.2-2' " (valueChange)="testNumber = $event"
                                 [title]="'Delta P[mmHG]'"
                                 [min]="appService.pMin"
                                 [max]="appService.pMax"
